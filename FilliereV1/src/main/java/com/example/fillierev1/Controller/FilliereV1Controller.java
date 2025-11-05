@@ -4,6 +4,7 @@ import com.example.fillierev1.DTO.FilliereRequest;
 import com.example.fillierev1.DTO.FilliereResponse;
 import com.example.fillierev1.Services.FilliereService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -17,6 +18,7 @@ public class FilliereV1Controller {
     public FilliereV1Controller(FilliereService filliereService) {
         this.filliereService = filliereService;
     }
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 
     @PostMapping
     public ResponseEntity<FilliereResponse> create(@RequestBody FilliereRequest request) {
