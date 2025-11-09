@@ -5,7 +5,7 @@ public class EtudiantResponse {
     private String nom;
     private String prenom;
     private String cne;
-    private Long filliereId;
+    private Integer filliereId;
     private FilliereDto filliere;
 
     // ----- Getters -----
@@ -25,7 +25,7 @@ public class EtudiantResponse {
         return cne;
     }
 
-    public Long getFilliereId() {
+    public Integer getFilliereId() {
         return filliereId;
     }
 
@@ -50,10 +50,9 @@ public class EtudiantResponse {
         this.cne = cne;
     }
 
-    public void setFilliereId(Long filliereId) {
+    public void setFilliereId(Integer filliereId) {
         this.filliereId = filliereId;
     }
-
     public void setFilliere(FilliereDto filliere) {
         this.filliere = filliere;
     }

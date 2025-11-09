@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 
@@ -19,4 +18,30 @@ public class Filliere {
     private String code;
     @Column(nullable = false)
      private String libelle;
+    // --- GETTERS ---
+    public Integer getIdfilliere() {
+        return idfilliere;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    // --- SETTERS ---
+    public void setIdfilliere(Integer idfilliere) {
+        this.idfilliere = idfilliere;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
 }

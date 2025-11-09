@@ -23,10 +23,9 @@ public class Etudiant {
     private String cne;
 
     @Column(nullable = false)
-    private Long filliereId;
+    private Integer filliereId;
 
     @Transient
-    private FilliereDto filliere;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -40,9 +39,7 @@ public class Etudiant {
     public String getCne() { return cne; }
     public void setCne(String cne) { this.cne = cne; }
 
-    public Long getFilliereId() { return filliereId; }
-    public void setFilliereId(Long filliereId) { this.filliereId = filliereId; }
+    public Integer getFilliereId() { return filliereId; }
+    public void setFilliereId(Integer filliereId) { this.filliereId = filliereId; }
 
-    public FilliereDto getFilliere() { return filliere; }
-    public void setFilliere(FilliereDto filliere) { this.filliere = filliere; }
 }

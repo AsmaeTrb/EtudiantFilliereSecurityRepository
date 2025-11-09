@@ -5,12 +5,11 @@ import lombok.Data;
 
 @Data
 public class FilliereResponse {
-    private Integer idfilliere ;
+    private Integer id ;
     private String code;
     private String libelle ;
-    // --- Getters ---
-    public Integer getIdfilliere() {
-        return idfilliere;
+    public Integer getId() {
+        return id;
     }
 
     public String getCode() {
@@ -22,8 +21,8 @@ public class FilliereResponse {
     }
 
     // --- Setters ---
-    public void setIdfilliere(Integer idfilliere) {
-        this.idfilliere = idfilliere;
+    public void setId(Integer idfilliere) {
+        this.id = idfilliere;
     }
 
     public void setCode(String code) {

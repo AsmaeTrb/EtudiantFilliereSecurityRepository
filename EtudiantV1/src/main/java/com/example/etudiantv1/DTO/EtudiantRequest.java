@@ -10,7 +10,7 @@ public class EtudiantRequest {
     private String nom;
     private  String prenom;
     private String cne;
-    private  Long filliereId;
+    private  Integer filliereId;
 
     public String getNom() {
         return nom;
@@ -24,7 +24,7 @@ public class EtudiantRequest {
         return cne;
     }
 
-    public Long getFilliereId() {
+    public Integer getFilliereId() {
         return filliereId;
     }
 
@@ -36,12 +36,13 @@ public class EtudiantRequest {
         this.prenom = prenom;
     }
 
+    public void setFilliereId(Integer filliereId) {
+        this.filliereId = filliereId;
+    }
+
     public void setCne(String cne) {
         this.cne = cne;
     }
 
-    public void setFilliereId(Long filliereId) {
-        this.filliereId = filliereId;
-    }
 }
 

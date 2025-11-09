@@ -39,7 +39,6 @@ public class EtudiantV1Controller {
     public EtudiantV1Controller (EtudiantService etudiantService){
         this.etudiantService = etudiantService;
 
-
     }
 
     @Operation(
@@ -53,8 +52,9 @@ public class EtudiantV1Controller {
                     )
             }
     )
-    @PreAuthorize("hasAuthority('SCOPE_USER')")
-    @GetMapping
+
+   @PreAuthorize("hasAuthority('SCOPE_USER')")
+    @GetMapping("/getAll")
     public ResponseEntity<List<EtudiantResponse>> getAllEtudiants() {
         return ResponseEntity.ok(etudiantService.getALLEtudiant());
     }
@@ -71,9 +71,8 @@ public class EtudiantV1Controller {
     @PreAuthorize("hasAuthority('SCOPE_USER')")
     @GetMapping("/{id}")
     public ResponseEntity<EtudiantResponse> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(etudiantService.getEtudiantById(id)); // lève 404 si non trouvé dans le service
+        return ResponseEntity.ok(etudiantService.getEtudiantById(id));
     }
-    // ✅ POST
     @Operation(
             summary = "Créer un nouvel étudiant",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -94,9 +93,8 @@ public class EtudiantV1Controller {
                     @ApiResponse(responseCode = "500", description = "Erreur interne du serveur")
             }
     )
-    // ===== G
-    @PreAuthorize("hasAuthority('SCOPE _ADMIN')")
-    @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PostMapping("/create")
     public ResponseEntity<EtudiantResponse> createEtudiant(@RequestBody EtudiantRequest etudiantRequest) {
         EtudiantResponse created = etudiantService.createEtudiant(etudiantRequest);
         return ResponseEntity.created(URI.create("/api/v1/etudiants/" + created.getId())).body(created);
@@ -106,11 +104,16 @@ public class EtudiantV1Controller {
             parameters = @Parameter(name = "id", required = true)
     )
 
-    @PreAuthorize("hasAuthority('SCOPE _ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Integer id) {
         etudiantService.DeleteByid(id);
         return ResponseEntity.ok().build();
     }
-
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<EtudiantResponse> update(@PathVariable Integer id, @RequestBody EtudiantRequest etudiantRequest) {
+        EtudiantResponse response = etudiantService.UpdateEtudiant(id, etudiantRequest);
+        return ResponseEntity.ok(response);
+    }
 }
