@@ -2,12 +2,27 @@ pipeline {
   agent any
 
   stages {
+
+    stage('Semgrep Scan - SecurityService') {
+      steps {
+        dir('SecurityService') {
+          sh '''
+            python3 -m pip install --user -U semgrep
+            ~/.local/bin/semgrep scan --config=auto --error
+          '''
+        }
+      }
+    }
+
     stage('Sonar Scan - SecurityService') {
       steps {
         dir('SecurityService') {
           withSonarQubeEnv('sq1') {
-            sh 'chmod +x mvnw'
-            sh './mvnw clean verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+            sh '''
+              chmod +x mvnw
+              ./mvnw clean verify -DskipTests \
+              org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar
+            '''
           }
         }
       }
