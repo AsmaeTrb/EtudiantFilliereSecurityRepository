@@ -8,6 +8,6 @@ Le projet a passé avec succès le **Quality Gate SonarQube**, sans bugs ni vuln
 
 L’analyse de la qualité du code est automatisée à l’aide de **Jenkins**.  
 Le serveur **SonarQube** est configuré dans Jenkins avec une URL dédiée et un **token d’authentification**, permettant l’exécution automatique des scans et la validation du **Quality Gate**.
-![SonarqubeConfigurationJenkins] (https://github.com/AsmaeTrb/workshop2--groupe6-/blob/2561f8ea4dfa375160bc464a541fedbbe3ef3c96/Capture%20d'%C3%A9cran%202025-12-18%20225930.png)
+![SonarqubeConfigurationJenkins](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/2561f8ea4dfa375160bc464a541fedbbe3ef3c96/Capture%20d'%C3%A9cran%202025-12-18%20225930.png)
 
 
