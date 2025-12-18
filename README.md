@@ -11,4 +11,4 @@ Le serveur **SonarQube** est configuré dans Jenkins avec une URL dédiée et un
 ![SonarqubeConfigurationJenkins](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/2561f8ea4dfa375160bc464a541fedbbe3ef3c96/Capture%20d'%C3%A9cran%202025-12-18%20225930.png)
 
 ![JenkinsPipelineSucces](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/881ed0d4cc4058403b1d96765357ae73d8f60b65/Capture%20d'%C3%A9cran%202025-12-18%20230847.png)
-
+![SonarQubeAnalyse](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/3a89c6030ffd06ea18866c4171fd7971faeb654a/Capture%20d'%C3%A9cran%202025-12-18%20162122.png)
