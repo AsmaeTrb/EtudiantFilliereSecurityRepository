@@ -20,3 +20,25 @@ Le pipeline Jenkins automatise :
 - 🔐 **Semgrep** pour l’analyse de sécurité statique du code (SAST)
 - 🔍 **SonarQube** pour l’analyse de la qualité du code, des bugs et des vulnérabilités
 ![SonarQubeAnalyse-Semgrep](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/77dea3592bd05e949bb750062b85ba819fceaf2a/Capture%20d'%C3%A9cran%202025-12-19%20000504.png)
+## 🔐 Dependabot – Dependency Management
+
+Ce projet utilise **GitHub Dependabot** pour automatiser la gestion et la sécurité des dépendances Maven.
+
+### ⚙️ Fonctionnalités
+- 🔄 Scan automatique des dépendances (`pom.xml`)
+- 📦 Mises à jour des dépendances **directes et transitives**
+- 🧩 Regroupement des dépendances **Spring** dans une seule Pull Request
+- 🕒 Exécution planifiée (daily)
+- 🔐 Détection des vulnérabilités de sécurité
+- 📊 Intégration avec le **Dependency Graph** de GitHub
+![Dependency Graph]https://github.com/AsmaeTrb/workshop2--groupe6-/blob/a01c49657478c1bdbb18087dea17f2ad97d93763/Capture%20d'%C3%A9cran%202025-12-24%20192538.png
+![ Pull Request1]https://github.com/AsmaeTrb/workshop2--groupe6-/blob/1e272fb1d0feb1642853d8d4fbf285c5ba2e5a22/Capture%20d'%C3%A9cran%202025-12-24%20192544.png
+![ Pull Request2]https://github.com/AsmaeTrb/workshop2--groupe6-/blob/c5035b18e5df61fe0a2aaf90c729e02eb5395459/Capture%20d'%C3%A9cran%202025-12-24%20192552.png
+
+### 🔁 Pull Requests automatiques
+Dependabot crée automatiquement des Pull Requests pour les mises à jour, par exemple :
+
+```text
+deps(deps): bump org.springframework.boot:spring-boot-starter-parent 
+from 3.5.7 to 4.0.1 in /SecurityService
+
