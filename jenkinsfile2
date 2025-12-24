@@ -3,23 +3,23 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps {
-        checkout scm
-      }
+      steps { checkout scm }
     }
 
-    stage('Build & Test (SecurityService)') {
+    stage('Build (sans tests)') {
       steps {
         dir('SecurityService') {
-          bat 'mvn -B clean verify -DskipTests'
+          bat 'mvn -B clean package -DskipTests'
         }
       }
     }
 
-    stage('OWASP Dependency-Check (SecurityService)') {
+    stage('OWASP Dependency-Check') {
       steps {
-        dir('SecurityService') {
-          bat 'mvn -B org.owasp:dependency-check-maven:9.0.9:check -Dformat=HTML,JSON -DfailBuildOnCVSS=7'
+        withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_API_KEY')]) {
+          dir('SecurityService') {
+            bat 'mvn -B org.owasp:dependency-check-maven:9.0.9:check -DnvdApiKey=%NVD_API_KEY% -Dformat=HTML,JSON -DfailBuildOnCVSS=7'
+          }
         }
       }
       post {
