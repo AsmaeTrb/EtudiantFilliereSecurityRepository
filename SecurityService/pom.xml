@@ -97,5 +97,39 @@
             </plugin>
         </plugins>
     </build>
+         <build>
+    <plugins>
+        <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>9.0.9</version>
+
+            <executions>
+                <execution>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            <configuration>
+                <!-- Échec du build si vulnérabilité critique -->
+                <failBuildOnCVSS>7</failBuildOnCVSS>
+
+                <!-- Formats de rapport -->
+                <formats>
+                    <format>HTML</format>
+                    <format>JSON</format>
+                </formats>
+
+                <!-- Dossier de sortie -->
+                <outputDirectory>
+                    ${project.build.directory}/dependency-check-report
+                </outputDirectory>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
