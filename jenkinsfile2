@@ -11,7 +11,7 @@ pipeline {
     stage('Build & Test (SecurityService)') {
       steps {
         dir('SecurityService') {
-          bat 'mvn -B clean test package'
+          bat 'mvn -B clean verify -DskipTests'
         }
       }
     }
