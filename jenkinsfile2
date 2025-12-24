@@ -9,45 +9,16 @@ pipeline {
       }
     }
 
-    stage('OWASP Dependency-Check (NVD)') {
-      steps {
-        dir('SecurityService') {
-          withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_KEY')]) {
-            bat '''
-              echo OWASP Dependency-Check with NVD
-              set "DC_DIR=%WORKSPACE%\\.dc"
+    stage('Dependency-Check') {
+    steps {
+        bat '''
+        mvn org.owasp:dependency-check-maven:check ^
+          -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-%d.json.gz ^
+          -DautoUpdate=false
+        '''
+    }
+}
 
-              if exist mvnw.cmd (
-                call mvnw.cmd -B dependency-check:update-only ^
-                  -DnvdApiKey=%NVD_KEY% ^
-                  -DnvdApiDelay=10000 ^
-                  -DnvdMaxRetryCount=10 ^
-                  -DdataDirectory="%DC_DIR%"
-              ) else (
-                mvn -B dependency-check:update-only ^
-                  -DnvdApiKey=%NVD_KEY% ^
-                  -DnvdApiDelay=10000 ^
-                  -DnvdMaxRetryCount=10 ^
-                  -DdataDirectory="%DC_DIR%"
-              )
-
-              if exist mvnw.cmd (
-                call mvnw.cmd -B dependency-check:check ^
-                  -DnvdApiKey=%NVD_KEY% ^
-                  -DnvdApiDelay=10000 ^
-                  -DnvdMaxRetryCount=10 ^
-                  -DdataDirectory="%DC_DIR%"
-              ) else (
-                mvn -B dependency-check:check ^
-                  -DnvdApiKey=%NVD_KEY% ^
-                  -DnvdApiDelay=10000 ^
-                  -DnvdMaxRetryCount=10 ^
-                  -DdataDirectory="%DC_DIR%"
-              )
-            '''
-          }
-        }
-      }
       post {
         always {
           archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report.*', allowEmptyArchive: true
