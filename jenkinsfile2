@@ -14,14 +14,15 @@ pipeline {
       }
     }
 
-    stage('OWASP Dependency-Check') {
-      steps {
+   stage('OWASP Dependency-Check') {
+    steps {
         withCredentials([string(credentialsId: 'nvd-api-key', variable: 'NVD_API_KEY')]) {
-          dir('SecurityService') {
-            bat 'mvn -B org.owasp:dependency-check-maven:9.0.9:check -DnvdApiKey=%NVD_API_KEY% -Dformat=HTML,JSON -DfailBuildOnCVSS=7'
-          }
+            dir('SecurityService') {
+                bat 'mvn -B org.owasp:dependency-check-maven:9.0.9:check -Dnvd.api.key=%NVD_API_KEY% -Dformat=HTML,JSON -DfailBuildOnCVSS=7'
+            }
         }
-      }
+    }
+}
       post {
         always {
           archiveArtifacts artifacts: 'SecurityService\\target\\dependency-check-report\\**', allowEmptyArchive: true
