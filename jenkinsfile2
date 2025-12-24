@@ -9,23 +9,25 @@ pipeline {
       }
     }
 
-    stage('Dependency-Check') {
-      steps {
-        // Si ton projet est dans le dossier SecurityService
-        dir('SecurityService') {
-          bat '''
-       mvn org.owasp:dependency-check-maven:check ^
-      -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-%%d.json.gz ^
-       -DautoUpdate=false
-
-          '''
-        }
-      }
-      post {
-        always {
-          archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report.*', allowEmptyArchive: true
-        }
-      }
+ stage('Dependency-Check') {
+  steps {
+    dir('SecurityService') {
+      bat '''
+      mvn org.owasp:dependency-check-maven:check ^
+        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz ^
+        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2023.json.gz ^
+        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2024.json.gz ^
+        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2025.json.gz ^
+        -DautoUpdate=true
+      '''
     }
+  }
+  post {
+    always {
+      archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report.*', allowEmptyArchive: true
+    }
+  }
+}
+
   }
 }
