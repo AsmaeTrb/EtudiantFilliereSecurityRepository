@@ -35,5 +35,19 @@ Ce projet utilise **GitHub Dependabot** pour automatiser la gestion et la sécur
 ### 🔁 Pull Requests automatiques
 Dependabot crée automatiquement des Pull Requests pour les mises à jour, par exemple :
 ![ Pull Request1](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/1e272fb1d0feb1642853d8d4fbf285c5ba2e5a22/Capture%20d'%C3%A9cran%202025-12-24%20192544.png)
-![ Pull Request2](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/c5035b18e5df61fe0a2aaf90c729e02eb5395459/Capture%20d'%C3%A9cran%202025-12-24%20192552.png)
+![ Pull Request2](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/c5035b18e5df61fe0a2aaf90c729e02eb5395459/Capture%20d'%C3%A9cran%202025-12-24%20192552.png)# 🔐 OWASP Dependency-Check – Jenkins Pipeline
+
+## 🎯 **OWASP Dependency-Check** 
+Ce projet met en place un **pipeline Jenkins** permettant d’exécuter **OWASP Dependency-Check** afin d’analyser les **vulnérabilités des dépendances Maven** du microservice **SecurityService**.
+
+![ Pull Request2](https://github.com/AsmaeTrb/workshop2--groupe6-/blob/5750e0e6b4fc649451228a653a9b0bbe1d72a386/Capture%20d'%C3%A9cran%202025-12-24%20213353.png)
+
+## 🔎 Mode d’analyse OWASP
+Le scan OWASP est exécuté en **mode offline** (`autoUpdate=false`) afin d’éviter :
+- les erreurs 403 / 404 liées à la NVD
+- les limitations réseau en environnement CI
+
+Ce mode garantit l’exécution du pipeline et permet de démontrer l’intégration de l’analyse de sécurité dans Jenkins.
+
+---
 
