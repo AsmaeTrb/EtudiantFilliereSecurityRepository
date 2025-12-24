@@ -9,16 +9,15 @@ pipeline {
       }
     }
 
- stage('Dependency-Check') {
+stage('Dependency-Check') {
   steps {
     dir('SecurityService') {
       bat '''
-      mvn org.owasp:dependency-check-maven:check ^
-        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz ^
-        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2023.json.gz ^
-        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2024.json.gz ^
-        -DnvdDatafeedUrl=https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-2025.json.gz ^
-        -DautoUpdate=true
+      mvn org.owasp:dependency-check-maven:12.1.0:check ^
+        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2023.json.gz ^
+        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2024.json.gz ^
+        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2025.json.gz ^
+        -DautoUpdate=false
       '''
     }
   }
@@ -28,6 +27,7 @@ pipeline {
     }
   }
 }
+
 
   }
 }
