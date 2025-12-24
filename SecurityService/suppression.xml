@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+   <suppress>
+      <notes><![CDATA[Suppression de CVE-2025-7962 (score CVSS 6.0) pour angus-activation-2.0.3 - Le plugin bugue avec failBuildOnCVSS=7]]></notes>
+      <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@.*$</packageUrl>
+      <vulnerabilityName>CVE-2025-7962</vulnerabilityName>
+   </suppress>
+</suppressions>
