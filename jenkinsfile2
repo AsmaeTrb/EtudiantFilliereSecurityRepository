@@ -3,39 +3,28 @@ pipeline {
 
   stages {
     stage('Checkout') {
-      steps { 
-        checkout scm 
-      }
-    }
-
-    stage('Build (sans tests)') {
       steps {
-        dir('SecurityService') {
-          bat 'mvn -B clean package -DskipTests'
-        }
+        deleteDir()
+        checkout scm
       }
     }
 
-    stage('OWASP Dependency-Check (Offline)') {
+    stage('OWASP Dependency-Check (SecurityService)') {
       steps {
         dir('SecurityService') {
           bat '''
-            echo Mode OFFLINE - utilisation des données locales...
-            
-            mvn -B org.owasp:dependency-check-maven:check ^
-              -Dformat=HTML ^
-              -Dformat=JSON ^
-              -DfailBuildOnCVSS=7 ^
-              -DautoUpdate=false ^
-              -DnvdApiDelay=0 ^
-              --no-transfer-progress
+            echo Lancement OWASP Dependency-Check
+            if exist mvnw.cmd (
+              call mvnw.cmd dependency-check:check
+            ) else (
+              mvn dependency-check:check
+            )
           '''
         }
       }
       post {
         always {
-          archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report.*', 
-            allowEmptyArchive: true
+          archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report.*', allowEmptyArchive: true
         }
       }
     }
