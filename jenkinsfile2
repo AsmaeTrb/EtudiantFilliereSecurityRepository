@@ -9,27 +9,23 @@ pipeline {
       }
     }
 
-stage('Dependency-Check') {
-  steps {
-    dir('SecurityService') {
-      bat '''
-      mvn org.owasp:dependency-check-maven:12.1.0:check ^
-        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2023.json.gz ^
-        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2024.json.gz ^
-        -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2025.json.gz ^
-        -DfailOnCVSS=11
-      '''
+    stage('Dependency-Check') {
+      steps {
+        dir('SecurityService') {
+          bat '''
+          mvn org.owasp:dependency-check-maven:12.1.0:check ^
+            -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2023.json.gz ^
+            -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2024.json.gz ^
+            -DnvdDatafeedUrl=file:///C:/dc-data/nvdcve-2.0-2025.json.gz ^
+            -DfailOnCVSS=11
+          '''
+        }
+      }
+      post {
+        always {
+          archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report/**', allowEmptyArchive: true
+        }
+      }
     }
-  }
-  post {
-    always {
-      archiveArtifacts artifacts: 'SecurityService/target/dependency-check-report/**', allowEmptyArchive: true
-    }
-  }
-}
-
-
-
-
   }
 }
