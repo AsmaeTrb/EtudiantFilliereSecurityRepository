@@ -57,60 +57,72 @@
     </dependencies>
 
     <!-- ✅ UN SEUL build -->
-    <build>
-        <plugins>
+<build>
+    <plugins>
 
-            <!-- Compiler -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-configuration-processor</artifactId>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
+        <!-- Compiler -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-configuration-processor</artifactId>
+                    </path>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
 
-            <!-- Spring Boot -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+        <!-- Spring Boot -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <excludes>
+                    <exclude>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclude>
+                </excludes>
+            </configuration>
+        </plugin>
 
-            <!-- OWASP Dependency-Check -->
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                       <version>12.1.0</version>
-              
-                <configuration>
-                    <failBuildOnCVSS>7</failBuildOnCVSS>
-                    <formats>
-                        <format>HTML</format>
-                        <format>JSON</format>
-                    </formats>
-                    <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
-                                 <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
+        <!-- OWASP Dependency-Check -->
+        <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>12.1.9</version>
 
-                </configuration>
-            </plugin>
+            <executions>
+                <execution>
+                    <id>check-dependencies</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                </execution>
+            </executions>
 
-        </plugins>
-    </build>
+            <configuration>
+                <format>HTML</format>
+                <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+                <failBuildOnCVSS>7</failBuildOnCVSS>
+                <analyzeTransitive>true</analyzeTransitive>
+
+                <!-- مهم: خلي dataDirectory ثابت خارج target باش تبقى DB بين builds -->
+                <dataDirectory>C:/dc-data</dataDirectory>
+
+                <!-- إذا ما عندكش suppression.xml فالمشروع، حيد هاد السطر -->
+                <!-- <suppressionFile>${project.basedir}/suppression.xml</suppressionFile> -->
+            </configuration>
+        </plugin>
+
+    </plugins>
+</build>
 
 </project>
